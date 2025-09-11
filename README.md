@@ -29,6 +29,8 @@
 
 ```bash
 $ npm install
+$ npm i --save class-validator class-transformer
+
 ```
 
 ## Compile and run the project

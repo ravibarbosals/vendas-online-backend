@@ -1,4 +1,4 @@
-import {validateOrReject, IsString , validate} from "class-validator";
+import { IsString } from 'class-validator';
 
 export class CreateUserDto {
   @IsString()

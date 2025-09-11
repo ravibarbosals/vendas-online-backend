@@ -13,16 +13,15 @@ export class UserService {
     private readonly userRepositor: Repository<UserEntity>,
   ) {}
 
-    async createUser(createUserDto: CreateUserDto): Promise<UserEntity > {
-      const saltOrRounds = 10;
+  async createUser(createUserDto: CreateUserDto): Promise<UserEntity > {
+    const saltOrRounds = 10;
 
-      const passwordHashed = await hash(createUserDto.password, saltOrRounds);
-
+    const passwordHashed = await hash(createUserDto.password, saltOrRounds);
       return this.userRepositor.save({
         ...createUserDto,
         typeUser: 1,
-        password: passwordHashed
-      })
+        password: passwordHashed,
+      });
 
     }
     async getAllUser(): Promise<UserEntity []>{
