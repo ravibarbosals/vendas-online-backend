@@ -11,6 +11,7 @@ import { APP_PIPE } from '@nestjs/core';
     provide: APP_PIPE,
     useClass: ValidationPipe,
   },
-    UserService]
+    UserService],
+  exports: [UserService],
 })
 export class UserModule {}
