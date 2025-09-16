@@ -28,7 +28,7 @@ export class CityService {
     const city= await this.cityRepository.findOne({
       where: {
         id: cityId,
-      }
+      },
     });
 
     if(!city) {

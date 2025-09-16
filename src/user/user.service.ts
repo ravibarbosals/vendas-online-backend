@@ -7,7 +7,6 @@ import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
@@ -17,21 +16,22 @@ export class UserService {
     const saltOrRounds = 10;
 
     const passwordHashed = await hash(createUserDto.password, saltOrRounds);
+
       return this.userRepository.save({
         ...createUserDto,
         typeUser: 1,
         password: passwordHashed,
       });
     }
+    
     async getUserByIdUsingRelations(userId: number): Promise<UserEntity> {
       return this.userRepository.findOne({
         where: {
           id: userId,
         },
-        relations: ['addresses'],
-      })
+      });
     }
-    async getAllUser(): Promise<UserEntity []>{
+    async getAllUser(): Promise<UserEntity[]> {
         return this.userRepository.find();
     }
 
@@ -40,8 +40,8 @@ export class UserService {
         where: {
           id: userId,
         },
-
       });
+
       if(!user) {
         throw new NotFoundException(`UserId: ${userId} Not Found`);
       }
