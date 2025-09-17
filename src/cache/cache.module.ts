@@ -1,13 +1,13 @@
-import { CacheModule as CacheModuleNest, Module } from '@nestjs/common';
+import { CacheModule as NestCacheModule, Module } from '@nestjs/common';
 import { CacheService } from './cache.service';
 
 @Module({
   imports: [
-    CacheModuleNest.register({
+    NestCacheModule.register({
       ttl: 900000000,
     }),
   ],
   providers: [CacheService],
-  exports: [CacheService],
+  exports: [CacheService, NestCacheModule],
 })
 export class CacheModule1 {}

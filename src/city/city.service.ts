@@ -10,7 +10,6 @@ export class CityService {
   constructor(
     @InjectRepository(CityEntity)
     private readonly cityRepository: Repository<CityEntity>,
-
     private readonly cacheService: CacheService,
   ) {}
 
