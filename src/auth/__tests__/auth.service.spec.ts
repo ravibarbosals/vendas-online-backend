@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { jwtMock } from '../__mocks__/jwt.mock';
 import { loginUserMock } from '../__mocks__/login-user.mock';
 import { ReturnUserDto } from '../../user/dtos/returnUser.dto';
+import { sign } from 'crypto';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -25,7 +26,7 @@ describe('AuthService', () => {
         {
           provide: JwtService,
           useValue: {
-            sing: jest.fn().mockResolvedValue(jwtMock),
+            sign: () => jwtMock,
           },
 
         },
