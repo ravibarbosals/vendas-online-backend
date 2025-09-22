@@ -44,7 +44,7 @@ import { ProductModule } from './product/product.module';
   providers: [{
     provide: APP_GUARD,
     useClass: RolesGuard,
-  }, CategorService, 
+  }, 
   ],
 })
 export class AppModule {}

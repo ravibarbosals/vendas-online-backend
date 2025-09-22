@@ -1,42 +1,42 @@
-import { CategoryEntity } from "src/category/entities/category.entity";
+import { CategoryEntity } from '../../category/entities/category.entity';
 import { 
     Column,
     CreateDateColumn,
     Entity,
     JoinColumn,
     ManyToOne,
-    PrimaryColumn,
+    PrimaryGeneratedColumn,
     UpdateDateColumn
     } from "typeorm";
 
 
 @Entity({ name: 'product' })
 export class ProductEntity {
-    @PrimaryColumn('rowid')
-    id: number;
+  @PrimaryGeneratedColumn('rowid')
+  id: number;
 
-    @Column({ name: 'name', nullable: false })
-    name: string;
+  @Column({ name: 'name', nullable: false })
+  name: string;
 
-    @Column({ name: 'category_id', nullable: false })
-    categoryId: number;
+  @Column({ name: 'category_id', nullable: false })
+  categoryId: number;
 
-    @Column({ name: 'price', nullable: false })
-    price: number;
+  @Column({ name: 'price', nullable: false })
+  price: number;
 
-    @Column({ name: 'image', nullable: false })
-    image: number;
+  @Column({ name: 'image', nullable: false })
+  image: string;
 
-    @CreateDateColumn({ name:'created_at' })
-    createdAt: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-    @UpdateDateColumn({ name: 'updated_at' })
-    updatedAt: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
-    @ManyToOne(
+  @ManyToOne(
     () => CategoryEntity,
     (category: CategoryEntity) => category.products,
-    )
-    @JoinColumn({ name: 'category_id' , referencedColumnName: 'id'})
-    category?: CategoryEntity
+  )
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'id' })
+  category?: CategoryEntity;
 }
