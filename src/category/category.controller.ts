@@ -21,7 +21,7 @@ export class CategoryController {
             (category) => new ReturnCategory(category));
 
     }
-    @Roles(UserType.Admin, UserType.User)
+    @Roles(UserType.Admin)
     @Post()
     async createCategory(
         @Body() createCategory: CreateCategory
