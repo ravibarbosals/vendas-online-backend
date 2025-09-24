@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ReturnCategory } from './dtos/return-category.dto';
 import { CategoryService } from './category.service';
-import { Roles } from 'src/decorators/roles.decorator';
-import { UserType } from 'src/user/enum/user-type.enum';
+import { Roles } from '../decorators/roles.decorator';
+import { UserType } from '../user/enum/user-type.enum';
 import { CreateCategory } from './dtos/create-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 
@@ -18,7 +18,8 @@ export class CategoryController {
     @Get()
     async findAllCategories(): Promise<ReturnCategory[]> {
         return (await this.categoryService.findAllCategories()).map(
-            (category) => new ReturnCategory(category));
+            (category) => new ReturnCategory(category),
+        );
 
     }
     @Roles(UserType.Admin)
