@@ -1,5 +1,5 @@
 import { Controller } from '@nestjs/common';
-import { Roles } from '../decorators/roles.decorator';
+import { Roles } from 'src/decorators/roles.decorator';
 import { UserType } from 'src/user/enum/user-type.enum';
 
 @Roles(UserType.User)

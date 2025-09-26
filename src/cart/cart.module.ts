@@ -1,15 +1,12 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CartController } from './cart.controller';
-import { APP_PIPE } from '@nestjs/core';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CartEntity } from './entities/cart.entity';
 
 @Module({
-  providers: [CartService,
-    {
-          provide: APP_PIPE,
-          useClass: ValidationPipe,
-        },
-  ],
+  imports: [TypeOrmModule.forFeature([CartEntity])],
+  providers: [CartService],
   controllers: [CartController]
 })
 export class CartModule {}

@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { CartEntity } from '../entities/cart.entity';
 import { CartService } from '../cart.service';
 
+
 describe('CartService', () => {
   let service: CartService;
   let cartRepository: Repository<CartEntity>;
@@ -20,10 +21,13 @@ describe('CartService', () => {
     }).compile();
 
     service = module.get<CartService>(CartService);
-    cartRepository = module.get<Repository<CartEntity>>(getRepositoryToken(CartEntity))
+    cartRepository = module.get<Repository<CartEntity>>(
+      getRepositoryToken(CartEntity),
+    );
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(cartRepository).toBeDefined();
   });
 });
