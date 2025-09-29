@@ -10,18 +10,21 @@ import {
 
 @Entity({ name: 'cart' })
 export class CartEntity {
-    @PrimaryGeneratedColumn('rowid')
-    id: number;
+  @PrimaryGeneratedColumn('rowid')
+  id: number;
 
-    @Column({ name: 'user_id', nullable: false})
-    userId: number;
+  @Column({ name: 'user_id', nullable: false })
+  userId: number;
 
-    @CreateDateColumn({ name: 'created_at '})
-    createdAt: Date;
+  @Column({ name: 'active', nullable: false })
+  active: boolean;
 
-    @UpdateDateColumn({ name: 'updated_at '})
-    updatedAt: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 
-    @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.cart)
-    cartProduct?: CartProductEntity[];
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
+
+  @OneToMany(() => CartProductEntity, (cartProduct) => cartProduct.cart)
+  cartProduct?: CartProductEntity[];
 }

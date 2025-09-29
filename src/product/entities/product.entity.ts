@@ -10,7 +10,6 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
     } from "typeorm";
-import { CartEntity } from 'src/cart/entities/cart.entity';
 
 
 @Entity({ name: 'product' })
