@@ -12,6 +12,7 @@ import { APP_PIPE } from '@nestjs/core';
         provide: APP_PIPE,
         useClass: ValidationPipe,
       }],
-  controllers: [ProductController]
+  controllers: [ProductController],
+  exports: [ProductService],
 })
 export class ProductModule {}
