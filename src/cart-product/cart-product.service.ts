@@ -43,11 +43,10 @@ export class CartProductService {
         });
     }
 
-    async inserProductInCart(
+    async insertProductInCart(
         insertCartDTO: InsertCartDTO, 
         cart: CartEntity,
     ): Promise<CartProductEntity> {
-
         await this.productService.findProductById(insertCartDTO.productId);
 
         const cartProduct = await this.verifyProductInCart(

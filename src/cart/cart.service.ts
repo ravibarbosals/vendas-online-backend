@@ -73,7 +73,7 @@ export class CartService {
             return this.createCart(userId);
         });
 
-        await this.cartProductService.inserProductInCart(insertCartDTO, cart);
+        await this.cartProductService.insertProductInCart(insertCartDTO, cart);
 
         return cart;
     }
