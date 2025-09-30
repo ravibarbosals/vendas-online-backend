@@ -1,10 +1,10 @@
 import { Module, ValidationPipe } from '@nestjs/common';
-import { CartService } from './cart.service';
-import { CartController } from './cart.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { CartEntity } from './entities/cart.entity';
 import { APP_PIPE } from '@nestjs/core';
-import { CartProductModule } from 'src/cart-product/cart-product.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CartProductModule } from '../cart-product/cart-product.module';
+import { CartController } from './cart.controller';
+import { CartService } from './cart.service';
+import { CartEntity } from './entities/cart.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CartEntity]), CartProductModule],

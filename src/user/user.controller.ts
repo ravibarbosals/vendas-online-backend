@@ -1,4 +1,4 @@
-import { 
+import {
     Body,
     Controller,
     Get,
@@ -6,14 +6,14 @@ import {
     Patch,
     Post,
 } from '@nestjs/common';
+import { Roles } from '../decorators/roles.decorator';
+import { UserId } from '../decorators/user-id.decorator';
 import { CreateUserDto } from './dtos/createUser.dto';
-import { UserEntity } from './entities/user.entity';
-import { UserService } from './user.service';
 import { ReturnUserDto } from './dtos/returnUser.dto';
 import { UpdatePasswordDTO } from './dtos/update-password.dto';
-import { UserId } from '../decorators/user-id.decorator';
-import { Roles } from 'src/decorators/roles.decorator';
+import { UserEntity } from './entities/user.entity';
 import { UserType } from './enum/user-type.enum';
+import { UserService } from './user.service';
 
 
 @Controller('user')

@@ -1,12 +1,11 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { Roles } from 'src/decorators/roles.decorator';
-import { UserType } from 'src/user/enum/user-type.enum';
-import { CartEntity } from './entities/cart.entity';
-import { InsertCartDTO } from './dtos/insert-cart.dto';
-import { CartService } from './cart.service';
-import { UserId } from 'src/decorators/user-id.decorator';
-import { ReturnCartDTO } from './dtos/return-card.dto';
 import { DeleteResult } from 'typeorm';
+import { Roles } from '../decorators/roles.decorator';
+import { UserId } from '../decorators/user-id.decorator';
+import { UserType } from '../user/enum/user-type.enum';
+import { CartService } from './cart.service';
+import { InsertCartDTO } from './dtos/insert-cart.dto';
+import { ReturnCartDTO } from './dtos/return-card.dto';
 import { UpdateCartDTO } from './dtos/update-cart.dto copy';
 
 @Roles(UserType.User, UserType.Admin)
