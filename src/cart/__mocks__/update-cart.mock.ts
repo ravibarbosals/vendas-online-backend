@@ -1,4 +1,4 @@
-import { productMock } from "../../product/__mocks__/product.mocks";
+import { productMock } from "../../product/__mocks__/product.mock";
 import { UpdateCartDTO } from "../dtos/update-cart.dto copy";
 
 export const updateCartMock: UpdateCartDTO = {
