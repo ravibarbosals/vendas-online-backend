@@ -1,13 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductService } from '../product.service';
-import { Repository } from 'typeorm';
-import { ProductEntity } from '../entities/product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { productMock } from '../__mocks__/product.mock';
-import { createProductMock } from '../__mocks__/create-product.mock';
-import { CategoryService } from '../../category/category.service';
-import { categoryMock } from '../../category/__mocks__/category.mocks';
+import { Repository } from 'typeorm';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
+import { categoryMock } from '../../category/__mocks__/category.mock';
+import { CategoryService } from '../../category/category.service';
+import { createProductMock } from '../__mocks__/create-product.mock';
+import { productMock } from '../__mocks__/product.mock';
+import { ProductEntity } from '../entities/product.entity';
+import { ProductService } from '../product.service';
 
 describe('ProductService', () => {
   let service: ProductService;

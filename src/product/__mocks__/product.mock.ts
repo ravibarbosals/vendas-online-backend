@@ -1,4 +1,4 @@
-import { categoryMock } from "../../category/__mocks__/category.mocks"
+import { categoryMock } from "../../category/__mocks__/category.mock"
 import { ProductEntity } from "../entities/product.entity"
 
 export const productMock: ProductEntity = {

@@ -1,4 +1,4 @@
-import { categoryMock } from "../../category/__mocks__/category.mocks";
+import { categoryMock } from "../../category/__mocks__/category.mock";
 import { UpdateProductDTO } from "../dtos/update-product.dto";
 
 export const updateProductMock: UpdateProductDTO = {
