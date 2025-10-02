@@ -1,7 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { PaymentEntity } from "src/payment/entities/payment.entity";
+import { 
+    Column, 
+    CreateDateColumn, 
+    Entity, 
+    OneToMany, 
+    PrimaryGeneratedColumn, 
+    UpdateDateColumn 
+} from "typeorm";
 
 @Entity({ name: 'payment_status' })
-export class CityEntity {
+export class PaymentStatusEntity {
     @PrimaryGeneratedColumn('rowid')
     id: number;
 
@@ -13,5 +21,8 @@ export class CityEntity {
 
     @UpdateDateColumn({ name: 'updated_at' })
     updatedAt: Date;
+
+    @OneToMany(() => PaymentEntity, (payment) => payment.paymentStatus)
+    payments?: PaymentEntity[];
 
 }
