@@ -3,7 +3,6 @@ import { CategoryController } from '../category.controller';
 import { CategoryService } from '../category.service';
 import { categoryMock } from '../__mocks__/category.mock';
 import { createCategoryMock } from '../__mocks__/create-category.mock';
-import { userEntityMock } from 'src/user/__mocks__/user.mock';
 
 describe('CategoryController', () => {
   let controller: CategoryController;
