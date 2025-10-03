@@ -14,6 +14,7 @@ import { CartEntity } from './entities/cart.entity';
         useClass: ValidationPipe,
       },
     ],
-  controllers: [CartController]
+  controllers: [CartController],
+  exports: [CartService]
 })
 export class CartModule {}

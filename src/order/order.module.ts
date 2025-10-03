@@ -4,10 +4,16 @@ import { OrderService } from './order.service';
 import { APP_PIPE } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrderEntity } from './entities/order.entity';
-import { PaymentModule } from 'src/payment/payment.module';
+import { PaymentModule } from '../payment/payment.module';
+import { OrderProductModule } from '../order-product/order-product.module';
+import { CartModule } from 'src/cart/cart.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([OrderEntity]), PaymentModule],
+  imports: [TypeOrmModule.forFeature([OrderEntity]), 
+  PaymentModule, 
+  CartModule, 
+  OrderProductModule,
+  ],
   controllers: [OrderController],
   providers: [OrderService,
         {
