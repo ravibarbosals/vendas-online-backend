@@ -48,7 +48,8 @@ export class OrderService {
             this.orderProductService.createOrderProduct(
                 cartProduct.productId, 
                 order.id,
-                0,
+                products.find((product) => product.id === cartProduct.productId)
+                ?.price || 0,
                 cartProduct.amount,
             ),
         ),
