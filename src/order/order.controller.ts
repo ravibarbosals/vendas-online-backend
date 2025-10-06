@@ -1,7 +1,7 @@
 import { 
     Body, 
     Controller, 
-    Param, 
+    Get, 
     Post 
 } from '@nestjs/common';
 import { CreateOrderDTO } from './dto/create-order.dto';
@@ -18,5 +18,10 @@ export class OrderController {
         @UserId() userId: number,
     ) {
         return this.orderService.createOrder(createOrderDTO, userId);
+    }
+
+    @Get()
+    async findOrderByUserId(@UserId() userId: number) {
+        return this.orderService.findOrdersByUserId(userId);
     }
 }

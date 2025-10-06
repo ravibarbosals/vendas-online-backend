@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderEntity } from './entities/order.entity';
 import { Repository } from 'typeorm';
@@ -25,7 +25,11 @@ export class OrderService {
 
     ) {}
 
-    async saveOrder(createOrderDTO: CreateOrderDTO, userId: number, payment: PaymentEntity): Promise<OrderEntity> {
+    async saveOrder(
+        createOrderDTO: CreateOrderDTO, 
+        userId: number, 
+        payment: PaymentEntity
+    ): Promise<OrderEntity> {
         return this.orderRepository.save({
             addressId: createOrderDTO.addressId,
             date: new Date(),
@@ -71,8 +75,31 @@ export class OrderService {
 
         await this.createOrderProductUsingCart(cart, order.id, products);
 
-        //await this.cartService.clearCart(userId);
+        await this.cartService.clearCart(userId);
 
-        return null;
+        return order;
+    }
+
+    async findOrdersByUserId(userId: number) {
+        const orders = await this.orderRepository.find({
+            where: {
+                userId,
+            },
+            relations: {
+                address: true,
+                ordersProduct: {
+                    product: true,
+                },
+                payment: {
+                    paymentStatus: true,
+                },
+            }
+        });
+
+        if (!orders || orders.length === 0) {
+            throw new NotFoundException('Orders not found');
+        }
+
+        return orders;
     }
 }
