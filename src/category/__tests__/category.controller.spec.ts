@@ -37,12 +37,7 @@ describe('CategoryController', () => {
     const category = await controller.findAllCategories(
     );
 
-    expect(category).toEqual([
-      {
-        id: categoryMock.id,
-        name: categoryMock.name,
-      },
-    ]);
+    expect(category).toEqual([categoryMock]);
   });
     
   it('should return category Entity in createCategory', async () => {
