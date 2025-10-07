@@ -14,6 +14,7 @@ import { UpdatePasswordDTO } from './dtos/update-password.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserType } from './enum/user-type.enum';
 import { UserService } from './user.service';
+import { Repository } from 'typeorm';
 
 
 @Controller('user')
@@ -27,7 +28,7 @@ export class UserController {
     }
     
     @Roles(UserType.Admin)
-    @Get()
+    @Get('/all')
     async getAllUser(): Promise<ReturnUserDto[]> {
         return (await this.userService.getAllUser()).map(
             (userEntity) => new ReturnUserDto(userEntity),
@@ -48,7 +49,14 @@ export class UserController {
     @Body() updatePasswordDTO: UpdatePasswordDTO,
     @UserId() userId: number, 
   ): Promise<UserEntity> {
-    return this.userService.updatePasswordUser(updatePasswordDTO, userId);
-    
+    return this.userService.updatePasswordUser(updatePasswordDTO, userId); 
+  }
+
+  @Roles(UserType.Admin, UserType.User)
+  @Get()
+  async getInfoUser(@UserId() userId: number): Promise<ReturnUserDto> {
+    return new ReturnUserDto(
+      await this.userService.getUserByIdUsingRelations(userId),
+    );
   }
 }
