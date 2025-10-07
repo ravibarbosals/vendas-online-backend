@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { returnDeleteMock } from '../../__mocks__/return-delete.mock';
 import { categoryMock } from '../../category/__mocks__/category.mock';
 import { CategoryService } from '../../category/category.service';
@@ -53,6 +53,33 @@ describe('ProductService', () => {
     const products = await service.findAll();
 
     expect(products).toEqual([productMock]);
+  });
+  
+  it('should return relations in find all products', async () => {
+    const spy = jest.spyOn(productRepository, 'find')
+    const products = await service.findAll([], true);
+
+    expect(products).toEqual([productMock]);
+    expect(spy.mock.calls[0][0]).toEqual({
+      relations: {
+        category: true,
+      },
+    });
+  });
+  
+  it('should return relations and array in find all products', async () => {
+    const spy = jest.spyOn(productRepository, 'find')
+    const products = await service.findAll([1], true);
+
+    expect(products).toEqual([productMock]);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: In([1]),
+      },
+      relations: {
+        category: true,
+      },
+    });
   });
   
   it('should return error if products empty', async () => {
