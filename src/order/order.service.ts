@@ -80,7 +80,7 @@ export class OrderService {
         return order;
     }
 
-    async findOrdersByUserId(userId: number) {
+    async findOrdersByUserId(userId: number): Promise<OrderEntity[]> {
         const orders = await this.orderRepository.find({
             where: {
                 userId,
