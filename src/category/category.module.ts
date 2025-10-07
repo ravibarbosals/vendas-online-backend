@@ -4,14 +4,15 @@ import { CategoryController } from './category.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryEntity } from './entities/category.entity';
 import { APP_PIPE } from '@nestjs/core';
+import { ProductModule } from 'src/product/product.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CategoryEntity])],
+  imports: [TypeOrmModule.forFeature([CategoryEntity]), ProductModule],
   providers: [{
       provide: APP_PIPE,
       useClass: ValidationPipe,
     },CategoryService],
   controllers: [CategoryController],
-  exports: [CategoryService]
+  exports: [CategoryService],
 })
 export class CategoryModule {}
