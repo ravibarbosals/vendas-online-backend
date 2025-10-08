@@ -51,4 +51,6 @@ export class OrderEntity {
     @OneToMany(() => OrderProductEntity, (orderProduct) => orderProduct.order)
     @JoinColumn({ name: 'user_id', referencedColumnName: 'id'})
     ordersProduct?: OrderProductEntity[];
+
+    amountProducts?: number;
 }
