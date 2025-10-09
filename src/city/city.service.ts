@@ -40,8 +40,8 @@ export class CityService {
   async findCityByName(
     nameCity: string, 
     nameState: string,
-  ): Promise<CityEntity[]> {
-    const city = await this.cityRepository.find({
+  ): Promise<CityEntity> {
+    const city = await this.cityRepository.findOne({
       where: {
         name: nameCity,
         state: {

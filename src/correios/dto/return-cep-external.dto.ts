@@ -1,6 +1,6 @@
 export class ReturnCepExternal {
     cep: string;
-    logadouro: string;
+    logradouro: string;
     complemento: string;
     bairro: string;
     localidade: string;

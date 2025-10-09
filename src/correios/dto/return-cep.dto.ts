@@ -4,18 +4,18 @@ export class ReturnCep {
     cep: string;
     publicPlace: string;
     complement: string;
-    neighnorhood: string;
+    neighborhood: string;
     city: string;
     uf: string;
     ddd: string;
     cityId?: number;
     stateId?: number
 
-    constructor(returnCep: ReturnCepExternal, cityId: number, stateId: number) {
+    constructor(returnCep: ReturnCepExternal, cityId?: number, stateId?: number) {
         this.cep = returnCep.cep;
-        this.publicPlace = returnCep.logadouro;
+        this.publicPlace = returnCep.logradouro;
         this.complement = returnCep.complemento;
-        this.neighnorhood = returnCep.bairro;
+        this.neighborhood = returnCep.bairro;
         this.city = returnCep.localidade;
         this.uf = returnCep.uf;
         this.ddd = returnCep.ddd;
