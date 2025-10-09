@@ -1,10 +1,10 @@
 import {
-    Body,
-    Controller,
-    Get,
-    Param,
-    Patch,
-    Post,
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
 } from '@nestjs/common';
 import { Roles } from '../decorators/roles.decorator';
 import { UserId } from '../decorators/user-id.decorator';
@@ -14,12 +14,17 @@ import { UpdatePasswordDTO } from './dtos/update-password.dto';
 import { UserEntity } from './entities/user.entity';
 import { UserType } from './enum/user-type.enum';
 import { UserService } from './user.service';
-import { Repository } from 'typeorm';
 
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
+
+    @Roles(UserType.Root)
+    @Post('/admin')
+    async createAdmin(@Body() createUser: CreateUserDto): Promise<UserEntity> {
+      return this.userService.createUser(createUser, UserType.Admin);
+    }
     
     
     @Post()
@@ -27,7 +32,7 @@ export class UserController {
         return this.userService.createUser(createUser);
     }
     
-    @Roles(UserType.Admin)
+    @Roles(UserType.Admin, UserType.Root)
     @Get('/all')
     async getAllUser(): Promise<ReturnUserDto[]> {
         return (await this.userService.getAllUser()).map(
@@ -35,7 +40,7 @@ export class UserController {
         );
     }
     
-    @Roles(UserType.Admin)
+    @Roles(UserType.Admin, UserType.Root)
     @Get('/:userId')
   async getUserById(@Param('userId') userId: number): Promise<ReturnUserDto> {
     return new ReturnUserDto(
@@ -43,7 +48,7 @@ export class UserController {
     );
   }
   
-  @Roles(UserType.Admin, UserType.User)
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Patch()
   async updatePasswordUser(
     @Body() updatePasswordDTO: UpdatePasswordDTO,
@@ -52,7 +57,7 @@ export class UserController {
     return this.userService.updatePasswordUser(updatePasswordDTO, userId); 
   }
 
-  @Roles(UserType.Admin, UserType.User)
+  @Roles(UserType.Admin, UserType.Root, UserType.User)
   @Get()
   async getInfoUser(@UserId() userId: number): Promise<ReturnUserDto> {
     return new ReturnUserDto(

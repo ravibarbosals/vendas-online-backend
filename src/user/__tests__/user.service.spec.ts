@@ -6,6 +6,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { userEntityMock } from '../__mocks__/user.mock';
 import { createUserMock } from '../__mocks__/createUser.mock';
 import { updatePasswordInvalidMock, updatePasswordMock } from '../__mocks__/update-user.mock';
+import { UserType } from '../enum/user-type.enum';
 
 describe('UserService', () => {
   let service: UserService;
@@ -94,10 +95,23 @@ describe('UserService', () => {
   });
 
     
-  it('should return user if user not exists ', async () => {
+  it('should return user if user not exists', async () => {
+    const spy = jest.spyOn(userRepository, 'save');
     jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
 
     const user = await service.createUser(createUserMock);
+    
+    expect(user).toEqual(userEntityMock);
+    expect(spy.mock.calls[0][0].typeUser).toEqual(UserType.User);
+  });
+
+  it('should return user if user not exists and user Admin', async () => {
+    const spy = jest.spyOn(userRepository, 'save');
+    jest.spyOn(userRepository, 'findOne').mockRejectedValue(undefined);
+
+    await service.createUser(createUserMock, UserType.Admin);
+    
+    expect(spy.mock.calls[0][0].typeUser).toEqual(UserType.Admin);
   });
 
   it('should return user in update password', async () => {

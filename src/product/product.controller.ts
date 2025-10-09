@@ -1,15 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { DeleteResult } from 'typeorm';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
-import { ReturnProduct } from './dtos/return-product.dto';
-import { ProductService } from './product.service';
-import { ProductEntity } from './entities/product.entity';
 import { CreateProductDTO } from './dtos/create-product.dto';
-import { DeleteResult } from 'typeorm';
+import { ReturnProduct } from './dtos/return-product.dto';
 import { UpdateProductDTO } from './dtos/update-product.dto';
+import { ProductEntity } from './entities/product.entity';
+import { ProductService } from './product.service';
 
 
-@Roles(UserType.Admin, UserType.User)
+@Roles(UserType.Admin, UserType.Root, UserType.User)
 @Controller('product')
 export class ProductController {
     constructor(private readonly productService: ProductService) {}
@@ -20,14 +20,14 @@ export class ProductController {
             (product) => new ReturnProduct(product)
         ); 
     }
-    @Roles(UserType.Admin)
+    @Roles(UserType.Admin, UserType.Root)
     @Post()
     async createProduct(@Body() createProduct: CreateProductDTO,
     ): Promise<ProductEntity> {
         return this.productService.createProduct(createProduct);
     }
 
-    @Roles(UserType.Admin)
+    @Roles(UserType.Admin, UserType.Root)
     @Delete('/:productId')
     async deleteProduct(
         @Param('productId') productId: number,
@@ -35,7 +35,7 @@ export class ProductController {
         return this.productService.deleteProduct(productId);
     }
 
-    @Roles(UserType.Admin)
+    @Roles(UserType.Admin, UserType.Root)
     @Put('/:productId')
     async updateProduct(
         @Body() updateProduct: UpdateProductDTO,
