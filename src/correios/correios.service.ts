@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { CityService } from '../city/city.service';
 import { ReturnCepExternal } from './dto/return-cep-external.dto';
 import { ReturnCep } from './dto/return-cep.dto';
-import { CityEntity } from 'src/city/entities/city.entity';
+import { CityEntity } from '../city/entities/city.entity';
 
 
 
