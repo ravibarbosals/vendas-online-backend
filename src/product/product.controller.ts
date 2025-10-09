@@ -14,12 +14,21 @@ import { ProductService } from './product.service';
 export class ProductController {
     constructor(private readonly productService: ProductService) {}
 
+    @Roles(UserType.Admin, UserType.Root, UserType.User)
     @Get()
     async findAll(): Promise<ReturnProduct[]> {
         return (await this.productService.findAll([], true)).map(
             (product) => new ReturnProduct(product)
         ); 
     }
+    @Roles(UserType.Admin, UserType.Root, UserType.User)
+    @Get('/:productId')
+    async findProductById(@Param('productId') productId): Promise<ReturnProduct> {
+        return new ReturnProduct(
+            await this.productService.findProductById(productId),
+        ); 
+    }
+
     @Roles(UserType.Admin, UserType.Root)
     @Post()
     async createProduct(@Body() createProduct: CreateProductDTO,
