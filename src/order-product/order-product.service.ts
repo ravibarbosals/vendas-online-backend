@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OrderProductEntity } from './entities/order-product.entity';
-import { In, Repository } from 'typeorm';
-import { ReturnGroupOrder } from 'src/payment/dtos/return-group-order.dto';
+import { Repository } from 'typeorm';
+import { ReturnGroupOrder } from '../payment/dtos/return-group-order.dto';
 
 @Injectable()
 export class OrderProductService {
