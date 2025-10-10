@@ -102,7 +102,7 @@ export class CategoryService {
     async deleteCategory(categoryId: number): Promise<DeleteResult> {
     const category = await this.findCategoryById(categoryId, true);
 
-    if (category.products.length > 0) {
+    if (category.products?.length > 0) {
         throw new BadRequestException('Category with relations.');
     }
 
