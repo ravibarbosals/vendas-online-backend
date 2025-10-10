@@ -48,6 +48,4 @@ export class ProductEntity {
   
   @OneToMany(() => OrderProductEntity, (orderProduct) => orderProduct.product)
   ordersProduct?: OrderProductEntity[];
-
-
 }
