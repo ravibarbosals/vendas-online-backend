@@ -8,11 +8,13 @@ import { createProductMock } from '../__mocks__/create-product.mock';
 import { productMock } from '../__mocks__/product.mock';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductService } from '../product.service';
+import { CorreiosService } from '../../correios/correios.service';
 
 describe('ProductService', () => {
   let service: ProductService;
   let productRepository: Repository<ProductEntity>;
   let categoryService: CategoryService;
+  let correioService: CorreiosService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -23,6 +25,12 @@ describe('ProductService', () => {
         useValue: {
           findCategoryById: jest.fn().mockResolvedValue(categoryMock),
         },
+        },
+        {
+          provide: CorreiosService,
+          useValue: {
+            priceDelivery: jest.fn().mockResolvedValue({})
+          },
         },
         {
         provide: getRepositoryToken(ProductEntity),
@@ -38,6 +46,7 @@ describe('ProductService', () => {
 
     service = module.get<ProductService>(ProductService);
     categoryService = module.get<CategoryService>(CategoryService);
+    correioService = module.get<CorreiosService>(CorreiosService);
     productRepository = module.get<Repository<ProductEntity>>(
       getRepositoryToken(ProductEntity),
     );
@@ -47,6 +56,7 @@ describe('ProductService', () => {
     expect(service).toBeDefined();
     expect(categoryService).toBeDefined();
     expect(productRepository).toBeDefined();
+    expect(correioService).toBeDefined();
   });
   
   it('should return all products', async () => {
@@ -109,9 +119,30 @@ describe('ProductService', () => {
   });
   
   it('should return product in find by id', async () => {
+    const spy = jest.spyOn(productRepository, 'findOne');
     const product = await service.findProductById(productMock.id);
 
     expect(product).toEqual(productMock);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: productMock.id,
+      },
+    });
+  });
+  
+  it('should return product in find by id use relations', async () => {
+    const spy = jest.spyOn(productRepository, 'findOne');
+    const product = await service.findProductById(productMock.id, true);
+
+    expect(product).toEqual(productMock);
+    expect(spy.mock.calls[0][0]).toEqual({
+      where: {
+        id: productMock.id,
+      },
+      relations: {
+        category: true,
+      },
+    });
   });
   
   it('should return error in product not found', async () => {

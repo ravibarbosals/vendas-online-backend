@@ -20,6 +20,8 @@ describe('ProductController', () => {
             createProduct: jest.fn().mockResolvedValue(productMock),
             deleteProduct: jest.fn().mockResolvedValue(returnDeleteMock),
             updateProduct: jest.fn().mockResolvedValue(productMock),
+            findProductById: jest.fn().mockResolvedValue(productMock),
+
           },
         },
       ],
@@ -46,6 +48,17 @@ describe('ProductController', () => {
         image: productMock.image,
       },
     ]);
+  });
+  
+  it('should return returnProduct in findProductById', async () => {
+    const products = await controller.findProductById(productMock.id);
+
+    expect(products).toEqual({
+        id: productMock.id,
+        name: productMock.name,
+        price: productMock.price,
+        image: productMock.image,
+    });
   });
   
   it('should return productEntity in createProduct', async () => {
