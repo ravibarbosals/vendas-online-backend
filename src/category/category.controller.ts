@@ -35,7 +35,7 @@ export class CategoryController {
     @Delete(':categoryId')
     async deleteCategory(
         @Param('categoryId') categoryId: number,
-): Promise<DeleteResult> {
+    ): Promise<DeleteResult> {
         return this.categoryService.deleteCategory(categoryId);
     }
 
@@ -45,7 +45,17 @@ export class CategoryController {
     async editCategory(
         @Param('categoryId') categoryId: number,
         @Body() updateCategory: UpdateCategory,
-): Promise<CategoryEntity> {
+    ): Promise<CategoryEntity> {
         return this.categoryService.editCategory(categoryId, updateCategory);
+    }
+    
+    
+    @Get(':categoryId')
+    async findCategoryById(
+        @Param('categoryId') categoryId: number,
+    ): Promise<ReturnCategory> {
+        return new ReturnCategory(
+            await this.categoryService.findCategoryById(categoryId, true),
+        );
     }
 }
