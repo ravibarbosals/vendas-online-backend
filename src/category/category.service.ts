@@ -108,4 +108,12 @@ export class CategoryService {
 
     return this.categoryRepository.delete({ id: categoryId });
     }
+    async editCategory(categoryId: number, updateCategory): Promise<CategoryEntity> {
+        const category = await this.findCategoryById(categoryId);
+
+        return this.categoryRepository.save({
+            ...category,
+            ...updateCategory,
+        });
+    }
 }

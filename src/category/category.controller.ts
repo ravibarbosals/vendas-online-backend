@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
 import { CategoryService } from './category.service';
@@ -6,6 +6,8 @@ import { CreateCategory } from './dtos/create-category.dto';
 import { ReturnCategory } from './dtos/return-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
+import { UpdateCategory } from './dtos/update-category.dto';
+import { UpdateCartDTO } from 'src/cart/dtos/update-cart.dto copy';
 
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
@@ -35,5 +37,15 @@ export class CategoryController {
         @Param('categoryId') categoryId: number,
 ): Promise<DeleteResult> {
         return this.categoryService.deleteCategory(categoryId);
+    }
+
+    
+    @Roles(UserType.Admin, UserType.Root)
+    @Put(':categoryId')
+    async editCategory(
+        @Param('categoryId') categoryId: number,
+        @Body() updateCategory: UpdateCategory,
+): Promise<CategoryEntity> {
+        return this.categoryService.editCategory(categoryId, updateCategory);
     }
 }
