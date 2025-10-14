@@ -3,7 +3,6 @@ import {
     Controller, 
     Delete, 
     Get, 
-    HostParam, 
     Param, 
     Post, 
     Put, 
@@ -16,7 +15,7 @@ import { ReturnProduct } from './dtos/return-product.dto';
 import { UpdateProductDTO } from './dtos/update-product.dto';
 import { ProductEntity } from './entities/product.entity';
 import { ProductService } from './product.service';
-import { Pagination } from 'src/dtos/pagination.dto';
+import { Pagination } from '../dtos/pagination.dto';
 
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)
@@ -39,7 +38,7 @@ export class ProductController {
         @Query('size') size?: number,
         @Query('page') page?: number,
     ): Promise<Pagination<ReturnProduct[]>> {
-        return this.productService.findAllPages(search, size, page);
+        return this.productService.findAllPage(search, size, page);
 
     }
 

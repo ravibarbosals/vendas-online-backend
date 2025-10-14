@@ -27,7 +27,7 @@ export class ProductService {
         private readonly categoryService: CategoryService,
     ) {}
 
-    async findAllPages(
+    async findAllPage(
         search?: string,
         size = DEFAULT_PAGE_SIZE,
         page = FIRST_PAGE,
