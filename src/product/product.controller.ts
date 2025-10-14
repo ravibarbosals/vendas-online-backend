@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { 
+    Body, 
+    Controller, 
+    Delete, 
+    Get, 
+    HostParam, 
+    Param, 
+    Post, 
+    Put, 
+    Query } from '@nestjs/common';
 import { DeleteResult } from 'typeorm';
 import { Roles } from '../decorators/roles.decorator';
 import { UserType } from '../user/enum/user-type.enum';
@@ -21,6 +30,15 @@ export class ProductController {
             (product) => new ReturnProduct(product)
         ); 
     }
+
+    @Roles(UserType.Admin, UserType.Root, UserType.User)
+    @Get('/page')
+    async findAllPage(@Query('search') search: string): Promise<ReturnProduct[]> {
+        return (await this.productService.findAllPages(search)).map(
+        (product) => new ReturnProduct(product),
+        );
+    }
+
     @Roles(UserType.Admin, UserType.Root, UserType.User)
     @Get('/:productId')
     async findProductById(@Param('productId') productId): Promise<ReturnProduct> {
