@@ -8,13 +8,11 @@ import { createProductMock } from '../__mocks__/create-product.mock';
 import { productMock } from '../__mocks__/product.mock';
 import { ProductEntity } from '../entities/product.entity';
 import { ProductService } from '../product.service';
-import { CorreiosService } from '../../correios/correios.service';
 
 describe('ProductService', () => {
   let service: ProductService;
   let productRepository: Repository<ProductEntity>;
   let categoryService: CategoryService;
-  let correioService: CorreiosService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,12 +23,6 @@ describe('ProductService', () => {
         useValue: {
           findCategoryById: jest.fn().mockResolvedValue(categoryMock),
         },
-        },
-        {
-          provide: CorreiosService,
-          useValue: {
-            priceDelivery: jest.fn().mockResolvedValue({})
-          },
         },
         {
         provide: getRepositoryToken(ProductEntity),
@@ -47,7 +39,6 @@ describe('ProductService', () => {
 
     service = module.get<ProductService>(ProductService);
     categoryService = module.get<CategoryService>(CategoryService);
-    correioService = module.get<CorreiosService>(CorreiosService);
     productRepository = module.get<Repository<ProductEntity>>(
       getRepositoryToken(ProductEntity),
     );
@@ -57,7 +48,6 @@ describe('ProductService', () => {
     expect(service).toBeDefined();
     expect(categoryService).toBeDefined();
     expect(productRepository).toBeDefined();
-    expect(correioService).toBeDefined();
   });
   
   it('should return all products', async () => {

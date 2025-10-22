@@ -18,10 +18,10 @@ describe('ProductController', () => {
           useValue: {
             findAll: jest.fn().mockResolvedValue([productMock]),
             createProduct: jest.fn().mockResolvedValue(productMock),
-            deleteProduct: jest.fn().mockResolvedValue(returnDeleteMock),
-            updateProduct: jest.fn().mockResolvedValue(productMock),
             findProductById: jest.fn().mockResolvedValue(productMock),
-            findAllPages: jest.fn().mockResolvedValue(productPaginationMock),
+            updateProduct: jest.fn().mockResolvedValue(productMock),
+            deleteProduct: jest.fn().mockResolvedValue(returnDeleteMock),
+            findAllPage: jest.fn().mockResolvedValue(productPaginationMock),
           },
         },
       ],
@@ -36,7 +36,7 @@ describe('ProductController', () => {
     expect(controller).toBeDefined();
     expect(productService).toBeDefined();
   });
-  
+
   it('should return returnProduct in findAll', async () => {
     const products = await controller.findAll();
 
@@ -49,42 +49,41 @@ describe('ProductController', () => {
       },
     ]);
   });
-  
-  it('should return returnProduct in findProductById', async () => {
+
+  it('should return returnProduct in findByProductId', async () => {
     const products = await controller.findProductById(productMock.id);
 
     expect(products).toEqual({
-        id: productMock.id,
-        name: productMock.name,
-        price: productMock.price,
-        image: productMock.image,
+      id: productMock.id,
+      name: productMock.name,
+      price: productMock.price,
+      image: productMock.image,
     });
   });
-  
+
   it('should return productEntity in createProduct', async () => {
     const product = await controller.createProduct(createProductMock);
 
     expect(product).toEqual(productMock);
   });
-  
+
   it('should return returnDelete in deleteProduct', async () => {
     const product = await controller.deleteProduct(productMock.id);
 
     expect(product).toEqual(returnDeleteMock);
   });
-  
-  it('should return productEntity in updateProduct', async () => {
+
+  it('should return ProductEntity in updateProduct', async () => {
     const product = await controller.updateProduct(
-      updateProductMock, 
-      productMock.id
+      updateProductMock,
+      productMock.id,
     );
 
     expect(product).toEqual(productMock);
   });
-  
-  
+
   it('shoud retun ProductEntity in findAllPage', async () => {
-    const product = await controller.findAllPage('');
+    const product = await controller.findAllPage();
 
     expect(product).toEqual(productPaginationMock);
   });

@@ -34,7 +34,7 @@ export class ProductController {
     @Roles(UserType.Admin, UserType.Root, UserType.User)
     @Get('/page')
     async findAllPage(
-        @Query('search') search: string,
+        @Query('search') search?: string,
         @Query('size') size?: number,
         @Query('page') page?: number,
     ): Promise<Pagination<ReturnProduct[]>> {
