@@ -7,7 +7,6 @@ import { ReturnCategory } from './dtos/return-category.dto';
 import { CategoryEntity } from './entities/category.entity';
 import { DeleteResult } from 'typeorm';
 import { UpdateCategory } from './dtos/update-category.dto';
-import { UpdateCartDTO } from 'src/cart/dtos/update-cart.dto copy';
 
 
 @Roles(UserType.Admin, UserType.Root, UserType.User)

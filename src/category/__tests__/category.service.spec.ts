@@ -111,7 +111,7 @@ describe('CategoryService', () => {
     expect(categories).toEqual(categoryMock);
   });
   
-  it('should return error in nnot found category by id', async () => {
+  it('should return error in not found category by id', async () => {
     jest.spyOn(categoryRepository, 'findOne').mockResolvedValue(undefined);
 
     expect(service.findCategoryById(categoryMock.id)).rejects.toThrowError();
