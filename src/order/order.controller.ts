@@ -39,8 +39,9 @@ export class OrderController {
     }
     @Roles(UserType.Admin, UserType.Root)
     @Get('/:orderId')
-    async findOrderById(@Param('orderId') orderId: number,
-): Promise<ReturnOrderDTO> {
+    async findOrderById(
+        @Param('orderId') orderId: number,
+    ): Promise<ReturnOrderDTO> {
     return new ReturnOrderDTO(
         (await this.orderService.findOrdersByUserId(undefined, orderId))[0],
     );      
