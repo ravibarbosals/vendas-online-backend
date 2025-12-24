@@ -22,7 +22,7 @@ import { OrderProductModule } from './order-product/order-product.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development.local'],
+      envFilePath: ['.env.local'],
       isGlobal: true,
     }),
     TypeOrmModule.forRoot({

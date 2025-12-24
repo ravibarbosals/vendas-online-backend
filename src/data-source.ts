@@ -2,7 +2,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { config } from 'dotenv';
 
 // Aponta diretamente para o ficheiro .env que a sua aplicação usa em desenvolvimento
-config({ path: '.env.development.local' });
+config({ path: '.env.local' });
 
 export const dataSourceOptions: DataSourceOptions = {
   type: 'postgres',
